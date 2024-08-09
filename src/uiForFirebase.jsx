@@ -45,7 +45,6 @@ export default function UiForFirebase() {
             },
           }}
         />
-      <Draggable>
          
          <div style={{position: 'absolute', zIndex: '1', left: '100px', top: '7px', backgroundColor: 'rgba(0,0,0,0.5)', color: 'white',borderRadius:'10px' }}>
             <div className="menu">
@@ -79,7 +78,6 @@ export default function UiForFirebase() {
             </div>
             {ModelPath && <ModelName />}
          </div>
-      </Draggable>
       </>
    );
 }
