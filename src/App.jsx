@@ -72,11 +72,64 @@ export default function App() {
   const [modelLoaded, setModelLoaded] = useAtom(inputModelUrl);
   const [steps, setSteps] = useState([]);
   const [canvasKey, setCanvasKey] = useState(0);
-  
-  
- 
+  const [recording, setRecording] = useState(false);
+  const mediaRecorderRef = useRef(null);
+  const recordedChunks = useRef([]);
+  const canvasRef = useRef(null); // Reference for the Canvas
+  const [recordingEnabled, setRecordingEnabled] = useState(false); // State to control recording
+
   const togglePlayPause = () => {
-    setAnimationControl((prev) => (prev === 'play' ? 'pause' : 'play'));
+    setAnimationControl((prev) => {
+      const newControl = prev === 'play' ? 'pause' : 'play';
+      if(recordingEnabled)
+      {
+      if (newControl === 'play') {
+        startRecording();
+      } else {
+        stopRecording();
+      }
+      }
+
+      return newControl;
+    });
+  };
+
+  const startRecording = () => {
+    if (!canvasRef.current) return;
+
+    const stream = canvasRef.current.captureStream(60);
+    mediaRecorderRef.current = new MediaRecorder(stream, {
+      mimeType: 'video/webm; codecs=vp9',
+    });
+
+    mediaRecorderRef.current.ondataavailable = (event) => {
+      if (event.data.size > 0) {
+        recordedChunks.current.push(event.data);
+      }
+    };
+
+    mediaRecorderRef.current.onstop = () => {
+      const blob = new Blob(recordedChunks.current, {
+        type: 'video/webm',
+      });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.style.display = 'none';
+      a.href = url;
+      a.download = 'animation.webm';
+      document.body.appendChild(a);
+      a.click();
+      URL.revokeObjectURL(url);
+    };
+
+    mediaRecorderRef.current.start();
+    setRecording(true);
+  };
+
+  const stopRecording = () => {
+    mediaRecorderRef.current.stop();
+    setRecording(false);
+    recordedChunks.current = [];
   };
 
   const handleAnimationSelect = (animationName) => {
@@ -139,7 +192,7 @@ export default function App() {
   return (
     <>
       <UiForFirebase />
-      <button onClick={() => store.enterAR()} style={{position:'absolute',zIndex:'200',left:'35%',left: '160px', top: '7px',borderRadius:'10px',height:'45px',backgroundColor: 'rgba(0,0,0,0.5)'}}>      <img src={vricon} className="icon" alt="My Icon" style={{fill:"white"}} />     </button>
+      <button onClick={() => store.enterAR()} style={{position:'absolute',zIndex:'200',left:'35%',left: '160px', top: '7px',borderRadius:'10px',height:'45px',backgroundColor: 'rgba(0,0,0,0.5)'}}>      <img src={vricon} className="icon" alt="My Icon" style={{fill:"white"}} />      </button>
       <div className="transform" style={{ position: 'absolute', top: '90%', width: '200px', height: '50px' }}> </div>
       <div className="back" style={{ position: 'absolute', top: '100px', left: '20px', width: '50px', height: '50px' }}> </div>
       {modelLoaded &&
@@ -162,12 +215,14 @@ export default function App() {
         selectedAnimations={selectedAnimations}
         handleAnimationSelect={handleAnimationSelect}
         onAddNewAnimation={handleAddNewAnimation}
+        recordingEnabled={recordingEnabled} // Pass the recording state
+        setRecordingEnabled={setRecordingEnabled}
       />
       <TransformControls />
       <ColorPickerGrid />
       <CameraNamesList position={'absolute'} />
       <LightNamesList position={'absolute'} />
-      <Canvas key={canvasKey} camera={{ position: [0, 3, 10] }} shadows={shadows}>
+      <Canvas ref={canvasRef} key={canvasKey} camera={{ position: [0, 3, 10] }} shadows={shadows}>
         <XR store={store}>
           <XRSessionListener onSessionEnd={handleSessionEnd} />
           <Lights />
