@@ -53,3 +53,5 @@ export const ModelLoaded = atom(false);
 export const GroupRef = atom(null);
 
 export const CameraRef = atom(null);
+
+export const modelLoadingatom = atom(true)

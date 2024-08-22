@@ -6,7 +6,7 @@ import { exports } from "./atoms";
 import { toCloud } from "./atoms";
 import { useAtom } from "jotai";
 import { modelPath } from "./atoms";
-import { inputModelUrl } from "./atoms";
+import { inputModelUrl,modelLoadingatom } from "./atoms";
 import { ExportTrigger } from "./atoms";
 import Draggable from 'react-draggable';
 import Joyride, { STATUS } from 'react-joyride';
@@ -17,6 +17,8 @@ export default function UiForFirebase() {
    const [InputModelUrl, setInputModelUrl] = useAtom(inputModelUrl);
    const [ModelPath, setModelPath] = useAtom(modelPath);
    const [exportTrigger, setExportTrigger] = useAtom(ExportTrigger);
+   const [isLoading, setIsLoading] = useAtom(modelLoadingatom);
+
    const [steps,setSteps] = useState([])
    const handleJoyrideCallback = (data) => {
       const { status, type } = data;
@@ -36,7 +38,7 @@ export default function UiForFirebase() {
     }, []);
 
    return (
-      <>      <Joyride
+      <>     {!isLoading && <Joyride
           callback={handleJoyrideCallback}
           steps={steps}
           styles={{
@@ -44,7 +46,7 @@ export default function UiForFirebase() {
               zIndex: 10000,
             },
           }}
-        />
+        />}
          
          <div style={{position: 'absolute', zIndex: '1', left: '100px', top: '7px', backgroundColor: 'rgba(0,0,0,0.5)', color: 'white',borderRadius:'10px' }}>
             <div className="menu">

@@ -262,3 +262,39 @@ button:focus-visible {
 .dropdown-item:hover .nested-dropdown {
   display: block;
 }
+.swal2-popup {
+  background-color: rgba(255,255,255,0.4); /* Make background transparent */
+  backdrop-filter: blur(10px); /* Apply blur effect */
+  -webkit-backdrop-filter: blur(10px); /* For Safari */
+}
+
+.loading-image {
+  width: 200px; /* Adjust the size of your image */
+  opacity: 0;
+  transition: opacity 2s ease-in-out; /* Smooth fade in and out */
+}
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(244,229,226,255);
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loading-content {
+  text-align: center;
+}
+@keyframes blink {
+  0% { opacity: 1; }
+  50% { opacity: 0.3; }
+  100% { opacity: 1; }
+}
+.loading-image {
+  opacity: 1;
+  animation: blink 2s infinite;
+}

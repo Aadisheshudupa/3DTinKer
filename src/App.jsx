@@ -9,7 +9,7 @@ import OrthographicCameraWithHelper from './OrthographicCameraWithHelper.jsx';
 import CameraNamesList from './CameraNamesList.jsx';
 import UiForFirebase from './uiForFirebase.jsx';
 import BackgroundColorWithGrid from './BackgroundColorWithGrid.jsx';
-import { globalShadow, modelPath } from './atoms.js';
+import { globalShadow, modelPath,modelLoadingatom } from './atoms.js';
 import { useAtom } from 'jotai';
 import LightControls from './LightControls.jsx';
 import Lights from './Lights.jsx';
@@ -30,8 +30,21 @@ import { ModelLoaded } from './atoms.js';
 import { inputModelUrl } from './atoms.js';
 import { XR, createXRStore, useXR } from '@react-three/xr'
 import vricon from './assets/cssIcons/VR.svg'
+import loadingImage from './assets/cssIcons/loadingImage.png'; // Update the path to your image
+
 const store = createXRStore()
 
+function LoadingScreen({ show }) {
+  return (
+    show && (
+      <div className="loading-overlay">
+        <div className="loading-content">
+          <img src={loadingImage} className="loading-image" alt="Loading" />
+        </div>
+      </div>
+    )
+  );
+}
 function XRSessionListener({ onSessionEnd }) {
   const { session } = useXR();
   
@@ -77,7 +90,20 @@ export default function App() {
   const recordedChunks = useRef([]);
   const canvasRef = useRef(null); // Reference for the Canvas
   const [recordingEnabled, setRecordingEnabled] = useState(false); // State to control recording
+  const [isLoading, setIsLoading] = useAtom(modelLoadingatom);
 
+  useEffect(() => {
+    const showLoadingScreen = () => {
+      setIsLoading(true);
+
+      // Simulate loading (e.g., fetching data, loading a model, etc.)
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 3000); // Adjust the time as needed
+    };
+
+    showLoadingScreen();
+  }, []);
   const togglePlayPause = () => {
     setAnimationControl((prev) => {
       const newControl = prev === 'play' ? 'pause' : 'play';
@@ -191,8 +217,9 @@ export default function App() {
 
   return (
     <>
+      <LoadingScreen show={isLoading} style={{zIndex:'10000000'}} />
       <UiForFirebase />
-      <button onClick={() => store.enterAR()} style={{position:'absolute',zIndex:'200',left:'35%',left: '160px', top: '7px',borderRadius:'10px',height:'45px',backgroundColor: 'rgba(0,0,0,0.5)'}}>      <img src={vricon} className="icon" alt="My Icon" style={{fill:"white"}} />      </button>
+      <button onClick={() => store.enterAR()} style={{position:'absolute',zIndex:'200',left:'20px', top: '7px',borderRadius:'10px',height:'45px',backgroundColor: 'rgba(0,0,0,0.5)'}}>      <img src={vricon} className="icon" alt="My Icon" style={{fill:"white"}} />      </button>
       <div className="transform" style={{ position: 'absolute', top: '90%', width: '200px', height: '50px' }}> </div>
       <div className="back" style={{ position: 'absolute', top: '100px', left: '20px', width: '50px', height: '50px' }}> </div>
       {modelLoaded &&
@@ -241,7 +268,6 @@ export default function App() {
           <ambientLight />
           <CameraManager />
           <BackgroundColorWithGrid />
-          <Stats />
         </XR>
         <CustomGizmoHelper />
       </Canvas>
