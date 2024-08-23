@@ -29,7 +29,7 @@ User can Load and store 3D models from the cloud marketplace implemented using F
 
 ## Setup Instructions
 
-To get started with PeterCatCo-3D-Web-App, follow these steps:
+To get started with 3DTinKer, follow these steps:
 
 1. **Clone the Repository**:
 
