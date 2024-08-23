@@ -66,9 +66,11 @@ To get started with 3DTinKer, follow these steps:
   - Implimented AR/VR capabalities
   - Assisted in managing state with Jotai.
   - Collaborated on creating and optimizing 3D models and scenes using Three.js.
-  - Designed and integrated the user interface, ensuring a cohesive user experience.
 
-- **Anirudda Seshu**:
+- **Aniruddha Seshu**:
+  
   - Developed core functionality using React and React Three Fiber.
   - Managed state with Jotai.
   - Implimented Firebase Cloud Storage Capabalities as import an to export to the cloud
+  - Designed and integrated the user interface, ensuring a cohesive user experience.
+  - Worked on grid and background for better user Experience 
