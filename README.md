@@ -1,65 +1,74 @@
-# Fabrik Spatial App
+# 3DTinKer
 
-The boilerplate is almost the absolute minimum that you need to get React Three Fiber to display a Three.js scene. We will make many additions to the boilerplate as we progress with the lessons.
+## Description
 
-# Create a project folder 
+3DTinKer is a beginner friendly 3D Visualization,lighting and animation framework in web
+made using react-three-fiber. It is VR compatible to make it more immersive. It is useful for prototyping and
+planning.
+User can Load and store 3D models from the cloud marketplace implemented using Firebas.
 
-Open a command/terminal prompt and create a new folder on your system somewhere.
+## Organization Contributor
 
-```mkdir react-three-fiber-boilerplate ```
+**Fabrik.Space** - _Collaborative Organization_:
 
-# CD into the new folder
+- Provided assistance and facilities to initiate 3D web applications.
+- Encouraged in the incorporation of advanced 3D graphics and interactive elements into the project.
 
-```cd react-three-fiber-boilerplate```
+## Tech Stack
 
-# Clone the repository 
-```git clone https://github.com/fabrik-space/spatial-app-boilerplate.git```
+- **React**: Core framework for building the dynamic user interface.
+- **React Three Fiber**: Renders 3D content seamlessly within the React environment with effecient way possible.
+- **Joyride**: For applying beginners guide/tour for better understanding
+- **React Three drei**: For implimenting Cameras,helpers and gizmo to the scene
+- **Three.js**: Provides the underlying tools for creating and manipulating 3D scenes.
+- **Jotai**: Manages application state efficiently and scalably.
+- **Firebase**: For implimenting cloud marketplace of models.
+- **SweetAlert2**: For implimenting User friendli input fields.
+- **React Three VR**: For implimenting AR/VR capabalities.
+- **CSS Modules**: Ensures modular and reusable styling for components.
 
+## Setup Instructions
 
-# Setup development environment 
-# VSCode 
+To get started with PeterCatCo-3D-Web-App, follow these steps:
 
-To begin, we should ensure that we've set up an IDE (Integrated Development Environment) to develop with.
-If you don't have VSCode already installed, then you can install it from - [VScode](https://code.visualstudio.com.) 
+1. **Clone the Repository**:
 
-# NodeJS
-We also need Node.js, which includes NPM, since we will be using the npm and npx commands.
-To check if Node.js is already installed, open a cmd/terminal/shell prompt and type,
+   ```bash
+   https://github.com/Aadisheshudupa/3DTinKer.git
+   cd 3DTinKer
 
-```node -v```
-You should get a response indicating a version number
-For example 
+   ```
 
-```v18.14.0```
-Your version should be equal to or higher than v18.0.0.
+2. **Install Dependencies**:
 
-We can also check the version of NPM,
-```npm -v```
-You want to see no error, but instead a version number equal to, or higher than v8.0.0.
+   ```bash
+   npm install
 
-# Run the app
-Once you have setup the devlopemnt environment, Open the project on VSCode. Make sure you are under the project folder if not ```cd spatial-app-boilerplate```, 
-Now open a new terminal within VScode and install all dependencies using
+   ```
 
-```npm install```
+3. **Run Application**:
 
-To run the application with local devlopement server
-```npm run dev```
+   ```bash
+   npm run dev
 
-<img width="1429" alt="Screenshot 2024-05-16 at 12 08 53 PM" src="https://github.com/fabrik-space/spatial-app-boilerplate/assets/67771257/1a977f72-8ceb-4c37-aa75-c7e2574aee16">
+   ```
 
-You should be able to see a red color cube on canvas, you can interact and get started with it
+4. **Open LocalHost to run the application**
+5. **Tinker with software as much as possible to achieve your desired results**
 
-Within you're terminal you should see 
-```spatial-app-boilerplate git:(main)```
+## Contributors
 
-Which means you're under the main branch of the project,
-Checkout from the current main branch to a new branch where you can start making changes 
-```git checkout -b "your-branch-name"```
+- **Aadishesh Udupa K**:
 
-Based on the module you start, Replace "your-branch-name" with a preffered branch name and associated task for example :
-```git checkout -b "module-1/upload-model"```
+  - Developed core functionality using React and React Three Fiber.
+  - Implimented camera,lights helper.
+  - Added animation feature with recoring capabilities
+  - Implimented AR/VR capabalities
+  - Assisted in managing state with Jotai.
+  - Collaborated on creating and optimizing 3D models and scenes using Three.js.
+  - Designed and integrated the user interface, ensuring a cohesive user experience.
 
-Once done with changes you can raise a pull request against the main branch and request review
-
-
+- **Anirudda Seshu**:
+  - Developed core functionality using React and React Three Fiber.
+  - Managed state with Jotai.
+  - Implimented Firebase Cloud Storage Capabalities as import an to export to the cloud
